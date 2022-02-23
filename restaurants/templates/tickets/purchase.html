@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<main>
+    <div>
+        <h1>Purchase Ticket {{ticket.name}}</h1>
+        {% if ticket.available %}
+        <form action="" method="POST" id="purchaseForm" data="{{restaurant.max_num_purchases}}">
+            {% csrf_token %}
+            <p>Are you sure you want to buy it?</p>
+    
+            <a href="{% url 'home' %}">Go Back</a>
+    
+            <input type="submit" value="Confirm">
+        </form>
+        {% else %}
+        <a href="{% url 'home' %}">Go Back</a>
+        <p>Sorry, this ticket is not available.</p>
+        {% endif %}
+    </div>
+    <div>
+        <h2>Other tickets availables for {{restaurant.name}}</h2>
+        <table>
+            <tr>
+              <th>Ticket name</th>
+              <th>Actions</th>
+            </tr>
+            {% for ticket in ticketList %}
+            <tr>
+              <td>{{ticket.name}}</td>
+              <td>
+                <div>
+                  <a href="{% url 'purchase-ticket' ticket.id %}">Purchase</a>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+    </div>
+</main>
+
+{% endblock %}

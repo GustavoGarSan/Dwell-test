@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<main>
+    {% for restaurant in restaurants %}
+    <div>
+        <h2>{{restaurant.name}}</h2>
+        <ul>
+            {% for ticket in restaurant.ticket_set.all %}
+            {% if ticket.available %}
+            <li><a href="{% url 'purchase-ticket' ticket.id %}">{{ticket.name}}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</main>
+
+{% endblock %}

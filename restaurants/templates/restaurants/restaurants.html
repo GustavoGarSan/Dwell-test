@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<main>
+    {% for restaurant in restaurants %}
+    <div>
+        <a href="{% url 'restaurant' restaurant.id %}">{{restaurant.name}}</a>
+    </div>
+    {% endfor %}
+</main>
+
+{% endblock %}
