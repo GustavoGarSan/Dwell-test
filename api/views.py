@@ -19,7 +19,7 @@ def getRestaurant(request, pk):
         restaurant = Restaurant.objects.get(id=pk)
         serializer = RestaurantSerializer(restaurant, many=False)
         return Response(serializer.data)
-    except Ticket.DoesNotExist:
+    except Restaurant.DoesNotExist:
         return Response(status=404)
     except ValidationError:
         return Response(ValidationError.error_dict, status=400)
@@ -35,7 +35,6 @@ def createTicket(request):
         return Response(serializer.error_messages, status=400)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
 def manageTicket(request, pk):
     try:
         ticket = Ticket.objects.get(id=pk)
